@@ -7,27 +7,37 @@ This repository demonstrates the **Single Responsibility Principle (SRP)**, the 
 **Definition:**  
 > A class should have only one reason to change.
 
-In other words, a class should have **one responsibility** — it should focus on a single functionality in the system.
+A class should have **one responsibility** — it should focus on a single functionality in the system.
 
 ---
 
 ## ⚠ The Problem This Example Highlights
 
 In the provided code:
+
 - The `UserManager` class handles multiple responsibilities:
   - Manages users (create, update, delete)
-  - Handles database connection
-  - Handles email sending
+  - Handles email service initialization
+  - Handles sending emails
   - Handles logging
 
-👉 This breaks SRP because changes in database logic, email logic, or logging will require changes in `UserManager`, increasing the chance of bugs and making maintenance harder.
+👉 This breaks SRP because:
+- Changes in **email logic** or **email service setup** would require changes in `UserManager`.
+- Changes in **logging logic** would require changes in `UserManager`.
+- Changes in **user management** would also affect the same class.
+
+👉 This increases the chance of bugs and makes the code harder to maintain, test, and extend.
 
 ---
 
 ## ✅ The Goal
 
-- **Separate responsibilities into dedicated classes.**
-- Each class should have a single responsibility (e.g., managing users, handling database connections, sending emails).
+- **Separate responsibilities into dedicated classes**:
+  - `UserManager` → Manages user operations only
+  - `EmailService` → Handles email logic and initialization
+  - `Logger` → Handles logging
+
+This ensures that each class has one reason to change.
 
 ---
 
@@ -36,15 +46,13 @@ In the provided code:
 ✅ Easier to maintain  
 ✅ Easier to extend  
 ✅ Easier to test  
-✅ Reduces the risk of unintended side effects
+✅ Reduces unintended side effects when modifying code  
 
 ---
 
 ## 🚀 How to use
 
 1️⃣ Clone the repo  
-2️⃣ Open the code in your IDE  
-3️⃣ Review how the responsibilities are split  
-4️⃣ Run and modify to see the impact of clean separation
-
-
+2️⃣ Review the `UserManager` implementation  
+3️⃣ Refactor or extend while respecting SRP  
+4️⃣ Simulate failure cases (e.g. email service failure) to observe impact
